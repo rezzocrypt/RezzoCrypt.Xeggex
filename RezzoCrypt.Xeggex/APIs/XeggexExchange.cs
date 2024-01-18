@@ -24,7 +24,7 @@
 using RezzoCrypt.Xeggex.Objects;
 using RezzoCrypt.Xeggex.Objects.Enums;
 
-namespace RezzoCrypt.Xeggex
+namespace RezzoCrypt.Xeggex.APIs
 {
     public class XeggexExchange(XeggexConnection connection)
     {

@@ -23,6 +23,7 @@
 
 using Flurl;
 using Flurl.Http;
+using RezzoCrypt.Xeggex.APIs;
 using RezzoCrypt.Xeggex.Objects;
 using System.Text;
 

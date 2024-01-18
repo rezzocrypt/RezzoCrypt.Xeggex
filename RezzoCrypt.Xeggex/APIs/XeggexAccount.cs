@@ -22,22 +22,18 @@
  */
 
 using RezzoCrypt.Xeggex.Objects;
-using RezzoCrypt.Xeggex.Objects.Enums;
 
-namespace RezzoCrypt.Xeggex
+namespace RezzoCrypt.Xeggex.APIs
 {
-    public class XeggexExchangeData(XeggexConnection connection)
+    public class XeggexAccount(XeggexConnection connection)
     {
         private readonly XeggexConnection _connection = connection;
 
-        public XeggexBidsAsks ExchangePositions(string primaryAsset, string secondaryAsset, int limit = 10)
-            => _connection.GetUrlResult<XeggexBidsAsks>("/orderbook", new
-            {
-                ticker_id = $"{primaryAsset}/{secondaryAsset}",
-                depth = limit
-            });
+        public double Fee => 0.2;
 
-        public IEnumerable<XeggexExchangeKline> Kline(string primaryAsset, string secondaryAsset, DateTime startDate, DateTime endDate, KlinePeriod period)
-            => _connection.GetUrlResult<XeggexExchangeKline[]>($"/market/getsymbol/{primaryAsset}_{secondaryAsset}", new { });
+        public IEnumerable<XeggexAccountBalances> AccountInfo() => _connection
+            .GetUrlResult<XeggexAccountBalances[]>("/balances", secure: true)
+            .Where(item => item.Held + item.Available > 0)
+            .ToArray();
     }
 }
